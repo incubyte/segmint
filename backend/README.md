@@ -50,17 +50,56 @@ backend/
 - `API_HOST`: Host to bind the server (default: 0.0.0.0)
 - `API_PORT`: Port to bind the server (default: 8000)
 - `API_DEBUG`: Enable debug mode (default: false)
-- `OPENAI_API_KEY`: OpenAI API key for integration
+- `OPENAI_API_KEY`: OpenAI API key for integration (required for persona creation)
+
+### Using the Persona Creation API
+
+The application includes a LinkedIn profile persona generation feature using LangChain agents. You can create professional personas from LinkedIn profiles with the following endpoint:
+
+#### POST /persona/create-persona
+
+Creates a professional persona from a LinkedIn profile URL.
+
+**Request Body:**
+
+```json
+{
+  "linkedin_url": "https://linkedin.com/in/johndoe"
+}
+```
+
+**Response:**
+
+```json
+{
+  "persona": "### John Doe\n**Senior Product Manager at Google**\n\n#### Experience\n- **Product Manager** at *Google* (3 years)\n- **Consultant** at *McKinsey* (2 years)\n\n#### Education\n- MBA, Stanford University\n\n#### Skills\nProduct Management, Leadership, Strategy",
+  "steps": [
+    // Array of intermediate steps taken by the agent
+  ]
+}
+```
+
+**cURL Example:**
+
+```bash
+curl -X 'POST' \
+  'http://127.0.0.1:8000/persona/create-persona' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{"linkedin_url": "https://linkedin.com/in/johndoe"}'
+```
 
 ### Testing
 
 ```bash
 pytest
 ```
+
 # Add the following to your .gitignore
-__pycache__/
-*.py[cod]
-*.class
+
+**pycache**/
+_.py[cod]
+_.class
 venv/
 .env
 .pytest_cache/

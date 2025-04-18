@@ -5,6 +5,8 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.routes.api import router as api_router
+from app.routes.persona import router as persona_router
+from app.routes.questions import router as questions_router
 
 # Load environment variables
 load_dotenv(override=True)
@@ -27,6 +29,8 @@ app.add_middleware(
 
 # Include routers
 app.include_router(api_router)
+app.include_router(persona_router)
+app.include_router(questions_router)
 
 
 @app.get("/", tags=["root"])
