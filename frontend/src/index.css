@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Base Colors */
+    --background: 0 0% 100%;
+    --foreground: 224 71% 4%;
+    
+    /* Card Colors */
+    --card: 0 0% 100%;
+    --card-foreground: 224 71% 4%;
+    
+    /* Popover Colors */
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71% 4%;
+    
+    /* Primary Colors - Deep Purple for brand identity */
+    --primary: 259 59% 59%;
+    --primary-foreground: 0 0% 100%;
+    
+    /* Secondary Colors */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 224 71% 4%;
+    
+    /* Muted Colors */
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 8% 46%;
+    
+    /* Accent Colors - Deep Blue */
+    --accent: 221 83% 53%;
+    --accent-foreground: 0 0% 100%;
+    
+    /* Destructive Colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    
+    /* Border & Input Colors */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 259 59% 59%;
+    
+    --radius: 0.5rem;
+    
+    /* Sidebar Colors */
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5% 26%;
+    --sidebar-primary: 240 6% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 5% 96%;
+    --sidebar-accent-foreground: 240 6% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217 91% 60%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Accessibility: Better focus styles for keyboard navigation */
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-none ring-2 ring-primary ring-offset-2 ring-offset-background;
+  }
+  
+  /* Skip to content link - accessibility feature */
+  .skip-to-content {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-white focus:text-primary focus:font-medium focus:rounded focus:shadow-md;
+  }
+  
+  /* Improve contrast on form elements */
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-gray-500;
+  }
+  
+  /* Improve text readability */
+  p, h1, h2, h3, h4, h5, h6 {
+    @apply text-gray-900;
+  }
+  
+  /* Text color for better contrast */
+  .text-body {
+    @apply text-gray-700;
+  }
+  
+  /* Prevent text from being too small */
+  .text-small {
+    @apply text-sm;
+  }
+}
