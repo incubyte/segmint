@@ -1,9 +1,9 @@
-from typing import List, Dict, Any, Optional
+from typing import Any, Dict, List, Optional
 
 from fastapi import APIRouter
 from pydantic import BaseModel
 
-from app.core.constants import PERSONALITY_QUESTIONS
+from app.core.constants import PERSONA_CREATION_QUESTIONS
 
 router = APIRouter(prefix="/questions", tags=["questions"])
 
@@ -21,7 +21,7 @@ class QuestionsResponse(BaseModel):
     questions: List[Question]
 
 
-@router.get("/", response_model=QuestionsResponse)
+@router.get("", response_model=QuestionsResponse)
 async def get_questions() -> Dict[str, List[Dict[str, Any]]]:
     """
     Get a list of personality assessment questions related to social media behavior.
@@ -29,4 +29,4 @@ async def get_questions() -> Dict[str, List[Dict[str, Any]]]:
     Returns a structured list of questions used to assess various personality traits
     based on social media usage patterns.
     """
-    return {"questions": PERSONALITY_QUESTIONS}
+    return {"questions": PERSONA_CREATION_QUESTIONS}

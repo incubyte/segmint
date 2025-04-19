@@ -1,4 +1,36 @@
-PERSONALITY_QUESTIONS = [
+PERSONA_CREATION_QUESTIONS = [
+    {
+        "id": "user_email",
+        "type": "text",
+        "question": "What is your email?",
+        "placeholder": "Enter your email",
+        "required": True,
+        "description": "User email",
+    },
+    {
+        "id": "current_role",
+        "type": "text",
+        "question": "What is your current role?",
+        "placeholder": "Enter your current role",
+        "required": True,
+        "description": "Current role",
+    },
+    {
+        "id": "company_name",
+        "type": "text",
+        "question": "What is the name of your company?",
+        "placeholder": "Enter your company name",
+        "required": True,
+        "description": "Company name",
+    },
+    {
+        "id": "years_of_experience",
+        "type": "number",
+        "question": "How many years of experience do you have?",
+        "placeholder": "Enter your years of experience",
+        "required": True,
+        "description": "Years of experience",
+    },
     {
         "id": "posting_frequency",
         "type": "text",
@@ -54,5 +86,21 @@ PERSONALITY_QUESTIONS = [
         "placeholder": "Explain your intent behind content",
         "required": True,
         "description": "Trait: Intentionality",
+    },
+    {
+        "id": "blog_url",
+        "type": "text",
+        "question": "What is the URL of your blog?",
+        "placeholder": "Enter your blog URL",
+        "required": True,
+        "description": "Blog URL",
+    },
+    {
+        "id": "social_media_platforms",
+        "type": "text",
+        "question": "What social media platforms do you use?",
+        "placeholder": "Enter your social media platforms",
+        "required": True,
+        "description": "Social media platforms",
     },
 ]
