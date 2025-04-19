@@ -1,4 +1,12 @@
-PERSONALITY_QUESTIONS = [
+PERSONA_CREATION_QUESTIONS = [
+    {
+        "id": "user_email",
+        "type": "text",
+        "question": "What is your email?",
+        "placeholder": "Enter your email",
+        "required": True,
+        "description": "User email",
+    },
     {
         "id": "posting_frequency",
         "type": "text",
@@ -54,5 +62,13 @@ PERSONALITY_QUESTIONS = [
         "placeholder": "Explain your intent behind content",
         "required": True,
         "description": "Trait: Intentionality",
+    },
+    {
+        "id": "linkedin_url",
+        "type": "text",
+        "question": "What is your LinkedIn profile URL?",
+        "placeholder": "Enter your LinkedIn URL",
+        "required": True,
+        "description": "LinkedIn URL",
     },
 ]

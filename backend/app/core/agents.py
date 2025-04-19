@@ -1,7 +1,9 @@
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
+
+from app.models.persona import PersonaQuestionAnswer
 
 
 class LinkedInScraperInput(BaseModel):
@@ -74,23 +76,36 @@ class PersonaCreatorTool(BaseTool):
         return self._run(profile_data)
 
 
-async def generate_persona(linkedin_url: str) -> Dict[str, Any]:
+async def get_traits(initial_data: List[PersonaQuestionAnswer]) -> Dict[str, Any]:
+    """Get traits from the initial data."""
+    return [
+        {
+            "name": "Humour",
+            "description": "Humour is a personality trait that describes a person's tendency to be humorous.",
+            "value": 5,
+        },
+        {
+            "name": "Authenticity",
+            "description": "Authenticity is a personality trait that describes a person's tendency to be authentic.",
+            "value": 8,
+        },
+    ]
+
+
+async def generate_persona(
+    linkedin_url: str, initial_data: List[PersonaQuestionAnswer]
+) -> Dict[str, Any]:
     """Generate a professional persona from a LinkedIn URL by directly invoking the tools."""
     linkedin_tool = LinkedInScraperTool()
     persona_tool = PersonaCreatorTool()
 
-    steps = []
     try:
         profile_data = await linkedin_tool._arun(linkedin_url)
-        steps.append(
-            {"tool": "linkedin_scraper", "input": linkedin_url, "output": profile_data}
-        )
 
         persona = await persona_tool._arun(profile_data)
-        steps.append(
-            {"tool": "persona_creator", "input": "profile data", "output": persona}
-        )
 
-        return {"persona": persona, "steps": steps}
+        traits = await get_traits(initial_data=initial_data)
+
+        return {"persona": persona, "traits": traits}
     except Exception as e:
         raise Exception(f"Error generating persona: {str(e)}")
