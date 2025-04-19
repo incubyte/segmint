@@ -66,15 +66,15 @@ class PersonaCreatorTool(BaseTool):
     ) -> str:
         """Create a formatted markdown persona from the profile data."""
 
-        # Prepare response data for the webhook - convert PersonaQuestionAnswer objects to dictionaries
-        questionaries = [
+        questionaries_with_question_id = [
             {
                 "question": qa.question,
                 "answer": qa.answer,
+                "question_id": qa.question_id,
             }
             for qa in initial_data
         ]
-        request_data = {"questionaries": questionaries}
+        request_data = {"questionaries": questionaries_with_question_id}
 
         print(request_data)
 
@@ -122,7 +122,7 @@ class PersonaCreatorTool(BaseTool):
                     "values": response_data.get("values", []),
                     "preferred_formats": response_data.get("preferred_formats", []),
                     "persona_summary": response_data.get("persona_summary", ""),
-                    "raw_questionaries": questionaries,
+                    "raw_questionaries": questionaries_with_question_id,
                 }
 
                 # Set the data
