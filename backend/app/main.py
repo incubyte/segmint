@@ -7,14 +7,15 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routes.api import router as api_router
 from app.routes.persona import router as persona_router
 from app.routes.questions import router as questions_router
+from app.routes.post import router as post_router
 
 # Load environment variables
 load_dotenv(override=True)
 
 # Create FastAPI app
 app = FastAPI(
-    title="HR Agent API",
-    description="An AI-powered HR agent API that analyzes potential candidates.",
+    title="Persona Generator API",
+    description="An AI-powered persona generator API that generates a persona.",
     version="0.1.0",
 )
 
@@ -31,13 +32,14 @@ app.add_middleware(
 app.include_router(api_router)
 app.include_router(persona_router)
 app.include_router(questions_router)
+app.include_router(post_router)
 
 
-@app.get("/", tags=["root"])
+@app.get("", tags=["root"])
 async def root():
     """Root endpoint that returns info about the API."""
     return {
-        "message": "Welcome to the HR Agent API",
+        "message": "Welcome to the Persona Generator API",
         "docs": "/docs",
         "version": "0.1.0",
     }
