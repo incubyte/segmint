@@ -55,7 +55,7 @@ async def get_persona(persona_id: str) -> Dict[str, Any]:
     return persona
 
 
-@router.get("/", response_model=List[Dict[str, Any]])
+@router.get("", response_model=List[Dict[str, Any]])
 async def list_personas(
     user_id: Optional[str] = None, limit: int = 10
 ) -> List[Dict[str, Any]]:
