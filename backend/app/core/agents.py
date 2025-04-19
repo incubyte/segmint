@@ -7,6 +7,7 @@ from typing import Any, Dict, List
 import httpx
 from dotenv import load_dotenv
 from firebase_admin import firestore
+from firecrawl import FirecrawlApp
 from langchain_core.tools import BaseTool
 from pydantic import BaseModel, Field
 
@@ -17,6 +18,14 @@ load_dotenv(override=True)
 
 # Get Firestore client
 db = get_firestore_client()
+app = FirecrawlApp(api_key=os.getenv("FIRECRAWL_API_KEY"))
+
+
+class ExtractSchema(BaseModel):
+    writing_style: str
+    tone_of_voice: str
+    values: List[str]
+    preferred_formats: List[str]
 
 
 class LinkedInScraperInput(BaseModel):
@@ -41,16 +50,14 @@ class BlogScrapper(BaseTool):
 
     def _run(self, url: str) -> Dict[str, Any]:
         """Run the LinkedIn scraper tool on the given URL."""
-        return {
-            "name": "John Doe",
-            "headline": "Senior Product Manager at Google",
-            "experience": [
-                {"role": "Product Manager", "company": "Google", "duration": "3 years"},
-                {"role": "Consultant", "company": "McKinsey", "duration": "2 years"},
+        response = app.extract(
+            [
+                url,
             ],
-            "education": "MBA, Stanford University",
-            "skills": ["Product Management", "Leadership", "Strategy"],
-        }
+            prompt="analyse the blogs and analyse the writing style, tone of voice, values and preferred formats",
+            schema=ExtractSchema.model_json_schema(),
+        )
+        return response.data
 
     async def _arun(self, url: str) -> Dict[str, Any]:
         """Async implementation of the LinkedIn scraper tool."""
@@ -62,7 +69,10 @@ class PersonaCreatorTool(BaseTool):
     description: str = "Generate a professional persona in markdown"
 
     def _run(
-        self, initial_data: List[PersonaQuestionAnswer], user_id: str = None
+        self,
+        initial_data: List[PersonaQuestionAnswer],
+        user_id: str = None,
+        blog_data: Dict[str, Any] = None,
     ) -> str:
         """Create a formatted markdown persona from the profile data."""
 
@@ -74,10 +84,10 @@ class PersonaCreatorTool(BaseTool):
             }
             for qa in initial_data
         ]
-        request_data = {"questionaries": questionaries_with_question_id}
-
-        print(request_data)
-
+        request_data = {
+            "questionaries": questionaries_with_question_id,
+            "blog_data": blog_data,
+        }
         # Send persona to Make.com webhook
         webhook_url = os.getenv("MAKE_WEBHOOK_URL")
 
@@ -85,7 +95,6 @@ class PersonaCreatorTool(BaseTool):
         # We can use httpx in synchronous mode
         try:
             response = httpx.post(webhook_url, json=request_data)
-            print(response.text)
 
             # Parse the response JSON (removing any surrounding backticks if present)
             response_text = response.text
@@ -132,7 +141,6 @@ class PersonaCreatorTool(BaseTool):
                 response_persona_data = persona_data.copy()
                 response_persona_data["created_at"] = datetime.now().isoformat()
 
-                print(f"Persona stored in Firestore with ID: {doc_id}")
                 # Return success with the persona ID
                 return response_persona_data
 
@@ -152,10 +160,13 @@ class PersonaCreatorTool(BaseTool):
             }
 
     async def _arun(
-        self, initial_data: List[PersonaQuestionAnswer], user_id: str = None
+        self,
+        initial_data: List[PersonaQuestionAnswer],
+        user_id: str = None,
+        blog_data: Dict[str, Any] = None,
     ) -> str:
         """Async implementation of the persona creator tool."""
-        return self._run(initial_data, user_id)
+        return self._run(initial_data, user_id, blog_data)
 
 
 async def generate_persona(
@@ -174,8 +185,7 @@ async def generate_persona(
         )
         if blog_url:
             blog_data = await blog_scrapper._arun(blog_url)
-        print(initial_data)
-        persona_result = await persona_tool._arun(initial_data, user_id)
+        persona_result = await persona_tool._arun(initial_data, user_id, blog_data)
 
         # Extract ID if it exists in the persona_result dictionary
         persona_id = None
