@@ -57,7 +57,6 @@ class BlogScrapper(BaseTool):
             prompt="analyse the blogs and analyse the writing style, tone of voice, values and preferred formats",
             schema=ExtractSchema.model_json_schema(),
         )
-        print(response.data)
         return response.data
 
     async def _arun(self, url: str) -> Dict[str, Any]:
