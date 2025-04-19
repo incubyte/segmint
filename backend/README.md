@@ -166,8 +166,17 @@ curl -X 'POST' \
 ## Testing
 
 ```bash
+# Run all tests
 pytest
+
+# Run with coverage
+pytest --cov=app --cov-report=term-missing
+
+# Use the test script (sets up environment and runs tests with coverage)
+./scripts/run_tests.sh
 ```
+
+Tests are located in the `tests/` directory. See `tests/README.md` for more information about the test structure and coverage.
 
 ## Troubleshooting
 

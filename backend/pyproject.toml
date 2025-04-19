@@ -14,6 +14,9 @@ dependencies = [
     "httpx",
     "firebase-admin",
     "firecrawl>=2.1.1",
+    "pytest",
+    "pytest-asyncio",
+    "pytest-cov",
 ]
 
 [tool.ruff]
@@ -28,3 +31,7 @@ unfixable = []
 
 [tool.pytest]
 testpaths = ["tests"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
+asyncio_default_fixture_loop_scope = "function"
