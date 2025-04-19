@@ -35,7 +35,7 @@ app.include_router(questions_router)
 app.include_router(post_router)
 
 
-@app.get("", tags=["root"])
+@app.get("/", tags=["root"])
 async def root():
     """Root endpoint that returns info about the API."""
     return {
