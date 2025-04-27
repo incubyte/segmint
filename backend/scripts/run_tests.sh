@@ -7,6 +7,9 @@ export MAKE_WEBHOOK_URL="https://example.com/webhook"
 export MAKE_WEBHOOK_POST_URL="https://example.com/webhook/post"
 export TESTING="1"
 
+# Change to the project root directory
+cd ..
+
 # Create a dummy firebase credentials file for testing
 echo '{"type": "service_account", "project_id": "test-project"}' > test-firebase-credentials.json
 
@@ -28,4 +31,6 @@ echo "- app/utils/db.py: 87% (Sentinel handling, list_personas)"
 echo "- app/routes/post.py: 82% (Error handling, post listing)"
 
 # Remove test credentials file after testing
-rm test-firebase-credentials.json
+if [ -f test-firebase-credentials.json ]; then
+    rm test-firebase-credentials.json
+fi
