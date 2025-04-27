@@ -5,6 +5,7 @@ export OPENAI_API_KEY="sk-test-key"
 export FIREBASE_CREDENTIALS_PATH="test-firebase-credentials.json"
 export MAKE_WEBHOOK_URL="https://example.com/webhook"
 export MAKE_WEBHOOK_POST_URL="https://example.com/webhook/post"
+export TESTING="1"
 
 # Create a dummy firebase credentials file for testing
 echo '{"type": "service_account", "project_id": "test-project"}' > test-firebase-credentials.json
