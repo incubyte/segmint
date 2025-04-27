@@ -1,5 +1,5 @@
-import pytest
 from unittest.mock import MagicMock
+
 from google.cloud.firestore_v1.transforms import Sentinel
 
 from app.utils.db import is_firestore_sentinel

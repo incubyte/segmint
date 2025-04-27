@@ -1,9 +1,9 @@
-import pytest
 from datetime import datetime
-from unittest.mock import MagicMock, patch
-from google.cloud.firestore_v1.transforms import Sentinel
+from unittest.mock import patch
 
-from app.utils.db import convert_to_serializable, is_firestore_sentinel
+import pytest
+
+from app.utils.db import convert_to_serializable
 
 
 class MockSentinel:
@@ -12,12 +12,12 @@ class MockSentinel:
 
 @pytest.fixture
 def mock_server_timestamp():
-    """Create a mock Firestore SERVER_TIMESTAMP sentinel without actually inheriting from Sentinel."""
+    """Create a mock Firestore SERVER_TIMESTAMP sentinel."""
     return MockSentinel()
 
 
 def test_convert_to_serializable_with_sentinel_simple():
-    """Test convert_to_serializable with a simple case of Firestore SERVER_TIMESTAMP sentinel."""
+    """Test convert_to_serializable with a Firestore SERVER_TIMESTAMP sentinel."""
     # Skip actual Sentinel, just directly test the behavior we want
     test_data = {
         "name": "Test",

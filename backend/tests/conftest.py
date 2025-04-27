@@ -1,6 +1,7 @@
 import os
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import AsyncMock, MagicMock, patch
 from fastapi.testclient import TestClient
 
 # Mock environment variables for testing before importing app
@@ -9,7 +10,6 @@ os.environ["FIREBASE_CREDENTIALS_PATH"] = "test-firebase-credentials.json"
 
 # Import app after setting environment variables
 from app.main import app
-from app.utils.db import get_firestore_client
 
 
 @pytest.fixture
@@ -42,8 +42,8 @@ def sample_persona_data():
         "name": "Jane Smith",
         "headline": "Software Engineer at Microsoft",
         "experience": [
-            {"role": "Software Engineer", "company": "Microsoft", "duration": "2 years"},
-            {"role": "Junior Developer", "company": "Startup Inc", "duration": "1 year"},
+            {"role": "Software Engineer", "company": "Microsoft", "duration": "2 y"},
+            {"role": "Junior Developer", "company": "Startup Inc", "duration": "1 year"}
         ],
         "education": "BS Computer Science, MIT",
         "skills": ["Python", "JavaScript", "Cloud Computing"],

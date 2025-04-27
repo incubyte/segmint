@@ -1,5 +1,6 @@
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import AsyncMock, MagicMock, patch
 
 from app.utils.db import list_personas
 
@@ -7,7 +8,7 @@ from app.utils.db import list_personas
 @pytest.mark.asyncio
 @patch("app.utils.db.get_firestore_client")
 @patch("app.utils.db.convert_to_serializable")
-async def test_list_personas_with_user_id(mock_convert_to_serializable, mock_get_client):
+async def test_list_personas_with_user_id(mock_convert, mock_get_client):
     """Test list_personas function with a specific user_id."""
     # Set up mocks
     mock_doc1 = MagicMock()
@@ -33,7 +34,7 @@ async def test_list_personas_with_user_id(mock_convert_to_serializable, mock_get
     mock_get_client.return_value = mock_db
     
     # Mock convert_to_serializable to return the same input
-    mock_convert_to_serializable.side_effect = lambda x: x
+    mock_convert.side_effect = lambda x: x
     
     # Call the function
     result = await list_personas(user_id="test-user", limit=10)
@@ -47,7 +48,7 @@ async def test_list_personas_with_user_id(mock_convert_to_serializable, mock_get
     mock_query.stream.assert_called_once()
     
     # Verify convert_to_serializable was called for each document
-    assert mock_convert_to_serializable.call_count == 2
+    assert mock_convert.call_count == 2
     
     # Verify the result
     assert len(result) == 2
@@ -58,7 +59,7 @@ async def test_list_personas_with_user_id(mock_convert_to_serializable, mock_get
 @pytest.mark.asyncio
 @patch("app.utils.db.get_firestore_client")
 @patch("app.utils.db.convert_to_serializable")
-async def test_list_personas_without_user_id(mock_convert_to_serializable, mock_get_client):
+async def test_list_personas_without_user_id(mock_convert, mock_get_client):
     """Test list_personas function without user_id (no filtering)."""
     # Set up mocks
     mock_doc1 = MagicMock()
@@ -83,7 +84,7 @@ async def test_list_personas_without_user_id(mock_convert_to_serializable, mock_
     mock_get_client.return_value = mock_db
     
     # Mock convert_to_serializable to return the same input
-    mock_convert_to_serializable.side_effect = lambda x: x
+    mock_convert.side_effect = lambda x: x
     
     # Call the function without user_id
     result = await list_personas(limit=5)
@@ -97,7 +98,7 @@ async def test_list_personas_without_user_id(mock_convert_to_serializable, mock_
     mock_query.stream.assert_called_once()
     
     # Verify convert_to_serializable was called for each document
-    assert mock_convert_to_serializable.call_count == 2
+    assert mock_convert.call_count == 2
     
     # Verify the result
     assert len(result) == 2
@@ -108,8 +109,8 @@ async def test_list_personas_without_user_id(mock_convert_to_serializable, mock_
 @pytest.mark.asyncio
 @patch("app.utils.db.get_firestore_client")
 @patch("app.utils.db.convert_to_serializable")
-async def test_list_personas_empty_result(mock_convert_to_serializable, mock_get_client):
-    """Test list_personas function returning an empty list."""
+async def test_list_personas_empty_result(mock_convert, mock_get_client):
+    """Test list_personas function returning empty list."""
     # Mock the query and stream
     mock_query = MagicMock()
     mock_query.where.return_value = mock_query
@@ -138,7 +139,7 @@ async def test_list_personas_empty_result(mock_convert_to_serializable, mock_get
     mock_query.stream.assert_called_once()
     
     # Verify convert_to_serializable was not called
-    mock_convert_to_serializable.assert_not_called()
+    mock_convert.assert_not_called()
     
     # Verify the result is an empty list
     assert result == []

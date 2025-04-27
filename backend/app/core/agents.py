@@ -54,7 +54,7 @@ class BlogScrapper(BaseTool):
             [
                 url,
             ],
-            prompt="analyse the blogs and analyse the writing style, tone of voice, values and preferred formats",
+            prompt="analyse the blogs writing style, tone of voice, values and formats",
             schema=ExtractSchema.model_json_schema(),
         )
         return response.data
@@ -172,7 +172,7 @@ class PersonaCreatorTool(BaseTool):
 async def generate_persona(
     initial_data: List[PersonaQuestionAnswer], user_id: str = None
 ) -> Dict[str, Any]:
-    """Generate a professional persona from a LinkedIn URL by directly invoking the tools."""
+    """Generate a professional persona by directly invoking the tools."""
     blog_scrapper = BlogScrapper()
     persona_tool = PersonaCreatorTool()
     blog_data = {}

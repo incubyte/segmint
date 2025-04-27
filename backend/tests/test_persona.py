@@ -1,10 +1,9 @@
-from unittest.mock import AsyncMock, patch
+from unittest.mock import patch
 
 import pytest
 from fastapi.testclient import TestClient
 
 from app.core.agents import BlogScrapper, PersonaCreatorTool
-from app.models.persona import PersonaQuestionAnswer
 from app.main import app
 
 client = TestClient(app)

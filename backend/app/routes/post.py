@@ -96,7 +96,7 @@ async def create_post(request: PostRequest) -> Dict[str, Any]:
                 )
         questionaire = []
         if persona:
-            # Fix: Check if persona is a dictionary and access raw_questionaries as a key
+            # Check if persona is a dictionary and access raw_questionaries as a key
             if isinstance(persona, dict):
                 questionaire = persona.get("raw_questionaries", [])
                 print(questionaire)
