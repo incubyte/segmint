@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 # Mock environment variables for testing before importing app
 os.environ["OPENAI_API_KEY"] = "sk-test-key"
 os.environ["FIREBASE_CREDENTIALS_PATH"] = "test-firebase-credentials.json"
+os.environ["TESTING"] = "1"
 
 # Import app after setting environment variables
 from app.main import app

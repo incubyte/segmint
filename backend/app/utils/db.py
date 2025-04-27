@@ -30,9 +30,14 @@ def get_firestore_client() -> firestore.Client:
             cred_path = os.environ.get(
                 "FIREBASE_CREDENTIALS_PATH", "firebase-credentials.json"
             )
-            # Initialize Firebase app
-            cred = credentials.Certificate(cred_path)
-            firebase_admin.initialize_app(cred)
+            
+            # In test mode, create a mock instead of requiring the file
+            if os.environ.get("TESTING") == "1":
+                firebase_admin.initialize_app()
+            else:
+                # Initialize Firebase app with credentials
+                cred = credentials.Certificate(cred_path)
+                firebase_admin.initialize_app(cred)
 
         # Create Firestore client
         _db = firestore.client()
