@@ -7,6 +7,7 @@ from fastapi.testclient import TestClient
 # Mock environment variables for testing before importing app
 os.environ["OPENAI_API_KEY"] = "sk-test-key"
 os.environ["FIREBASE_CREDENTIALS_PATH"] = "test-firebase-credentials.json"
+os.environ["FIRECRAWL_API_KEY"] = "test-firecrawl-key"
 os.environ["TESTING"] = "1"
 
 # Set up Firebase mocks before importing app
@@ -16,11 +17,21 @@ mock_doc = MagicMock()
 mock_collection.document.return_value = mock_doc
 mock_firestore_client.collection.return_value = mock_collection
 
+# Mock FirecrawlApp
+mock_firecrawl_app = MagicMock()
+mock_firecrawl_app.extract.return_value = MagicMock(data={
+    "writing_style": "Professional",
+    "tone_of_voice": "Authoritative",
+    "values": ["Innovation", "Quality"],
+    "preferred_formats": ["Blog posts", "Articles"]
+})
+
 # Apply patches
 patch("firebase_admin.initialize_app", return_value=None).start()
 patch("firebase_admin.get_app", return_value=None).start()
 patch("firebase_admin.firestore.client", return_value=mock_firestore_client).start()
 patch("firebase_admin.credentials.Certificate", return_value=None).start()
+patch("firecrawl.FirecrawlApp", return_value=mock_firecrawl_app).start()
 
 # Import app after setting up mocks and environment variables
 from app.main import app

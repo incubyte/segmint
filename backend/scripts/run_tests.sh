@@ -5,6 +5,7 @@ export OPENAI_API_KEY="sk-test-key"
 export FIREBASE_CREDENTIALS_PATH="test-firebase-credentials.json"
 export MAKE_WEBHOOK_URL="https://example.com/webhook"
 export MAKE_WEBHOOK_POST_URL="https://example.com/webhook/post"
+export FIRECRAWL_API_KEY="test-firecrawl-key"
 export TESTING="1"
 
 # Change to the project root directory
