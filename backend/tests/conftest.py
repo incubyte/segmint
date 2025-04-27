@@ -9,7 +9,20 @@ os.environ["OPENAI_API_KEY"] = "sk-test-key"
 os.environ["FIREBASE_CREDENTIALS_PATH"] = "test-firebase-credentials.json"
 os.environ["TESTING"] = "1"
 
-# Import app after setting environment variables
+# Set up Firebase mocks before importing app
+mock_firestore_client = MagicMock()
+mock_collection = MagicMock()
+mock_doc = MagicMock()
+mock_collection.document.return_value = mock_doc
+mock_firestore_client.collection.return_value = mock_collection
+
+# Apply patches
+patch("firebase_admin.initialize_app", return_value=None).start()
+patch("firebase_admin.get_app", return_value=None).start()
+patch("firebase_admin.firestore.client", return_value=mock_firestore_client).start()
+patch("firebase_admin.credentials.Certificate", return_value=None).start()
+
+# Import app after setting up mocks and environment variables
 from app.main import app
 
 
