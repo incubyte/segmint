@@ -1,6 +1,6 @@
 import os
+
 from fastapi.testclient import TestClient
-from unittest import mock
 
 # Mock environment variables for testing
 os.environ["OPENAI_API_KEY"] = "sk-test-key"

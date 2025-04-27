@@ -25,12 +25,12 @@ uvicorn app.main:app --reload
 python main.py
 ```
 
-API will be available at http://127.0.0.1:8000
+API will be available at http://localhost:8000
 
 ### API Documentation
 
-- Swagger UI: http://127.0.0.1:8000/docs
-- ReDoc: http://127.0.0.1:8000/redoc
+- Swagger UI: http://localhost:8000/docs
+- ReDoc: http://localhost:8000/redoc
 
 ### Project Structure
 
@@ -99,7 +99,7 @@ Creates a professional persona from a LinkedIn profile URL.
 
 ```bash
 curl -X 'POST' \
-  'http://127.0.0.1:8000/persona/create-persona' \
+  'http://localhost:8000/persona/create-persona' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{"linkedin_url": "https://linkedin.com/in/johndoe"}'
@@ -110,12 +110,6 @@ curl -X 'POST' \
 #### POST /webhook/make
 
 The backend provides a webhook endpoint that integrates with Make.com for persona creation.
-
-The Make.com webhook is available at:
-
-```
-https://hook.eu2.make.com/71tjabpjeamjb7cnuavyirh37p2gse0s
-```
 
 **Request Format:**
 
@@ -157,7 +151,7 @@ https://hook.eu2.make.com/71tjabpjeamjb7cnuavyirh37p2gse0s
 
 ```bash
 curl -X 'POST' \
-  'http://127.0.0.1:8000/webhook/make' \
+  'http://localhost:8000/webhook/make' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{"questionaries": [{"question": "What are your primary goals for using social media?", "answer": "My main goals are to establish Thought Leadership and increase Brand Awareness."}]}'

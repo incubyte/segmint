@@ -1,6 +1,4 @@
-import json
-import uuid
-from unittest.mock import patch, MagicMock, AsyncMock
+from unittest.mock import patch
 
 import pytest
 from fastapi.testclient import TestClient
@@ -97,7 +95,7 @@ def test_create_persona(client: TestClient, mock_generate_persona):
     
     # Verify mock was called with correct parameters
     initial_data = [
-        PersonaQuestionAnswer(**question_data) for question_data in test_data["initial_data"]
+        PersonaQuestionAnswer(**qdata) for qdata in test_data["initial_data"]
     ]
     mock_generate_persona.assert_awaited_once_with(initial_data, "test@example.com")
 

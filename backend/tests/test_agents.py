@@ -1,19 +1,15 @@
 import json
 import os
-from datetime import datetime
-from unittest.mock import AsyncMock, MagicMock, patch
+from unittest.mock import MagicMock, patch
 
 import pytest
-from firebase_admin import firestore
 
 from app.core.agents import (
-    BlogScrapper, 
-    PersonaCreatorTool, 
-    ExtractSchema, 
-    LinkedInScraperInput,
-    PersonaCreatorInput,
+    BlogScrapper,
+    ExtractSchema,
+    PersonaCreatorTool,
     WebhookPersonaRequest,
-    generate_persona
+    generate_persona,
 )
 from app.models.persona import PersonaQuestionAnswer
 

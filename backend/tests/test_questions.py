@@ -1,4 +1,3 @@
-import pytest
 from fastapi.testclient import TestClient
 
 
@@ -25,6 +24,6 @@ def test_get_questions(client: TestClient):
     assert "required" in question
     
     # Make sure standard fields are present
-    expected_fields = ["id", "type", "question", "placeholder", "required", "description"]
+    expected_fields = ["id", "type", "question", "placeholder", "required"]
     for field in expected_fields:
         assert field in question

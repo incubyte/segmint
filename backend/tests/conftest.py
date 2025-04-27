@@ -1,15 +1,40 @@
 import os
+from unittest.mock import MagicMock, patch
+
 import pytest
-from unittest.mock import AsyncMock, MagicMock, patch
 from fastapi.testclient import TestClient
 
 # Mock environment variables for testing before importing app
 os.environ["OPENAI_API_KEY"] = "sk-test-key"
 os.environ["FIREBASE_CREDENTIALS_PATH"] = "test-firebase-credentials.json"
+os.environ["FIRECRAWL_API_KEY"] = "test-firecrawl-key"
+os.environ["TESTING"] = "1"
 
-# Import app after setting environment variables
+# Set up Firebase mocks before importing app
+mock_firestore_client = MagicMock()
+mock_collection = MagicMock()
+mock_doc = MagicMock()
+mock_collection.document.return_value = mock_doc
+mock_firestore_client.collection.return_value = mock_collection
+
+# Mock FirecrawlApp
+mock_firecrawl_app = MagicMock()
+mock_firecrawl_app.extract.return_value = MagicMock(data={
+    "writing_style": "Professional",
+    "tone_of_voice": "Authoritative",
+    "values": ["Innovation", "Quality"],
+    "preferred_formats": ["Blog posts", "Articles"]
+})
+
+# Apply patches
+patch("firebase_admin.initialize_app", return_value=None).start()
+patch("firebase_admin.get_app", return_value=None).start()
+patch("firebase_admin.firestore.client", return_value=mock_firestore_client).start()
+patch("firebase_admin.credentials.Certificate", return_value=None).start()
+patch("firecrawl.FirecrawlApp", return_value=mock_firecrawl_app).start()
+
+# Import app after setting up mocks and environment variables
 from app.main import app
-from app.utils.db import get_firestore_client
 
 
 @pytest.fixture
@@ -42,8 +67,8 @@ def sample_persona_data():
         "name": "Jane Smith",
         "headline": "Software Engineer at Microsoft",
         "experience": [
-            {"role": "Software Engineer", "company": "Microsoft", "duration": "2 years"},
-            {"role": "Junior Developer", "company": "Startup Inc", "duration": "1 year"},
+            {"role": "Software Engineer", "company": "Microsoft", "duration": "2 y"},
+            {"role": "Junior Developer", "company": "Startup Inc", "duration": "1 year"}
         ],
         "education": "BS Computer Science, MIT",
         "skills": ["Python", "JavaScript", "Cloud Computing"],

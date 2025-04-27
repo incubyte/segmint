@@ -1,10 +1,8 @@
 import json
-import uuid
 from datetime import datetime
-from unittest.mock import patch, MagicMock, AsyncMock
+from unittest.mock import MagicMock, patch
 
 import pytest
-from fastapi.testclient import TestClient
 
 
 @pytest.fixture
@@ -105,7 +103,7 @@ def mock_httpx_post():
     with patch("app.routes.post.httpx.post") as mock_post:
         # Mock successful response
         mock_response = MagicMock()
-        mock_response.text = json.dumps({"post_suggestions": ["Test post content 1", "Test post content 2"]})
+        mock_response.text = json.dumps({"post_suggestions": ["Post 1", "Post 2"]})
         mock_response.raise_for_status = MagicMock()
         mock_post.return_value = mock_response
         
@@ -113,7 +111,9 @@ def mock_httpx_post():
 
 
 @patch("uuid.uuid4")
-def test_create_post(mock_uuid, client, mock_post_firestore, mock_get_persona_by_id, mock_httpx_post):
+def test_create_post(
+    mock_uuid, client, mock_post_firestore, mock_get_persona_by_id, mock_httpx_post
+):
     """Test the create_post endpoint."""
     # Mock UUID
     mock_uuid.return_value = "test-post-id"
@@ -161,7 +161,9 @@ def test_create_post(mock_uuid, client, mock_post_firestore, mock_get_persona_by
 
 @pytest.mark.skip("Need to fix validation in post endpoint")
 @patch("uuid.uuid4")
-def test_create_post_without_persona_id(mock_uuid, client, mock_post_firestore, mock_httpx_post):
+def test_create_post_without_persona_id(
+    mock_uuid, client, mock_post_firestore, mock_httpx_post
+):
     """Test the create_post endpoint without persona_id."""
     # This test is skipped because the current API implementation requires 
     # a 'MAKE_WEBHOOK_POST_URL' environment variable which we aren't properly mocking
@@ -199,9 +201,11 @@ def test_create_post_without_persona_id(mock_uuid, client, mock_post_firestore, 
 
 @pytest.mark.skip("Need to fix error handling in post endpoint")
 @patch("uuid.uuid4")
-def test_create_post_persona_not_found(mock_uuid, client, mock_post_firestore, mock_httpx_post):
+def test_create_post_persona_not_found(
+    mock_uuid, client, mock_post_firestore, mock_httpx_post
+):
     """Test the create_post endpoint when persona is not found."""
-    # This test is skipped because the error isn't being properly propagated to status code 404
+    # This test is skipped because the error isn't properly handled
     
     # Mock persona not found
     with patch("app.utils.db.get_persona_by_id", return_value=None):
@@ -230,7 +234,9 @@ def test_create_post_persona_not_found(mock_uuid, client, mock_post_firestore, m
 
 
 @patch("uuid.uuid4")
-def test_create_post_missing_webhook_url(mock_uuid, client, mock_post_firestore, mock_get_persona_by_id):
+def test_create_post_missing_webhook_url(
+    mock_uuid, client, mock_post_firestore, mock_get_persona_by_id
+):
     """Test the create_post endpoint with missing webhook URL."""
     # Mock missing environment variable
     with patch("os.getenv", return_value=None):
@@ -317,5 +323,7 @@ def test_list_posts(client, mock_post_firestore):
     
     # Verify mock was called with correct parameters
     mock_post_firestore.collection.assert_called_with("posts")
-    mock_post_firestore.collection().where.assert_called_with("user_id", "==", "test@example.com")
+    mock_post_firestore.collection().where.assert_called_with(
+        "user_id", "==", "test@example.com"
+    )
     mock_post_firestore.collection().order_by().limit.assert_called_with(10)

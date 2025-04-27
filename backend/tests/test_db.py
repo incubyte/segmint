@@ -1,11 +1,11 @@
+from unittest.mock import MagicMock
+
 import pytest
-from unittest.mock import patch, MagicMock
 
 from app.utils.db import (
+    convert_to_serializable,
     get_persona_by_id,
     list_personas,
-    convert_to_serializable,
-    is_firestore_sentinel,
 )
 
 

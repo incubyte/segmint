@@ -42,7 +42,7 @@ PERSONA_CREATION_QUESTIONS = [
     {
         "id": "content_intent",
         "type": "text",
-        "question": "Do you consciously aim to influence others or inspire them with your posts, or is your content more personal in nature?",
+        "question": "Do you aim to influence others or is your content more personal?",
         "placeholder": "Explain your intent behind content",
         "required": True,
         "description": "Trait: Intentionality",
@@ -69,7 +69,7 @@ extra_questions = [
     {
         "id": "posting_style",
         "type": "text",
-        "question": "When you post something online, do you usually plan it out or is it spontaneous? Why?",
+        "question": "Do you plan your posts or are they spontaneous? Why?",
         "placeholder": "Explain your posting style",
         "required": True,
         "description": "Trait: Conscientiousness",
@@ -77,7 +77,7 @@ extra_questions = [
     {
         "id": "engagement_importance",
         "type": "text",
-        "question": "How important are likes, comments, or shares to you when you post something?",
+        "question": "How important are likes, comments, or shares to you?",
         "placeholder": "Describe your reaction to social engagement",
         "required": True,
         "description": "Trait: Validation",
@@ -85,7 +85,7 @@ extra_questions = [
     {
         "id": "aesthetic_strategy",
         "type": "text",
-        "question": "Do you follow a specific aesthetic, theme, or strategy for your online presence? If yes, what motivates it?",
+        "question": "Do you follow a specific aesthetic or theme? What motivates it?",
         "placeholder": "Describe your strategy or theme",
         "required": True,
         "description": "Trait: Curation",
@@ -93,7 +93,7 @@ extra_questions = [
     {
         "id": "posting_frequency",
         "type": "text",
-        "question": "How often do you post on social media platforms (e.g., Instagram, X/Twitter, LinkedIn, etc.) and what kind of content do you typically share?",
+        "question": "How often do you post and what content do you typically share?",
         "placeholder": "Describe your posting frequency and content type",
         "required": True,
         "description": "Trait: Extraversion",

@@ -6,8 +6,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.routes.api import router as api_router
 from app.routes.persona import router as persona_router
-from app.routes.questions import router as questions_router
 from app.routes.post import router as post_router
+from app.routes.questions import router as questions_router
 
 # Load environment variables
 load_dotenv(override=True)
