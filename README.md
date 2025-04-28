@@ -15,16 +15,12 @@ In today's digital world, maintaining a professional online presence is crucial 
 
 ### Persona Management
 
-![Persona Management]
-
 - **LinkedIn Profile Analysis**: Upload your LinkedIn profile to automatically create a professional persona
 - **Customizable Profiles**: Define your content goals, target audience, tone of voice, and key topics
 - **Multiple Persona Support**: Create and manage different personas for various professional contexts
 - **AI-Enhanced Profiles**: Our AI helps identify your key strengths and unique selling points
 
 ### Content Studio
-
-![Content Studio]
 
 - **AI-Powered Content Creation**: Generate professional content based on your persona
 - **Multi-platform Support**: Create content for LinkedIn, Twitter, Medium, and other platforms
@@ -180,8 +176,3 @@ If you encounter any issues or have questions, please:
 
 - Check the [documentation](./backend/README.md)
 - File an issue in our issue tracker
-- Contact our support team
-
-## License
-
-[MIT License](LICENSE) - Feel free to use, modify, and distribute this software according to the terms of the license.
