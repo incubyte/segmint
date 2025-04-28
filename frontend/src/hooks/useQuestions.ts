@@ -1,8 +1,7 @@
-
 import { Question } from "@/types/signup";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 
-// This simulates fetching questions from an API
+// Fallback questions if API fails
 const mockQuestions: Question[] = [
   {
     id: "fullName",
@@ -62,20 +61,36 @@ const mockQuestions: Question[] = [
   },
 ];
 
+const API_URL = "https://segmint-ujsx.onrender.com/questions/";
+
 export const useQuestions = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Simulate API call
     const fetchQuestions = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
-      setQuestions(mockQuestions);
-      setIsLoading(false);
+      try {
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+          throw new Error(`API request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+        console.log(data.questions);
+        setQuestions(data.questions);
+      } catch (err) {
+        console.error("Failed to fetch questions from API:", err);
+        setError("Failed to fetch questions from API. Using local questions instead.");
+        setQuestions(mockQuestions);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchQuestions();
   }, []);
 
-  return { questions, isLoading };
+  return { questions, isLoading, error };
 };
