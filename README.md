@@ -17,15 +17,12 @@ In today's digital world, maintaining a professional online presence is crucial 
 
 - **LinkedIn Profile Analysis**: Upload your LinkedIn profile to automatically create a professional persona
 - **Customizable Profiles**: Define your content goals, target audience, tone of voice, and key topics
-- **Multiple Persona Support**: Create and manage different personas for various professional contexts
 - **AI-Enhanced Profiles**: Our AI helps identify your key strengths and unique selling points
 
 ### Content Studio
 
 - **AI-Powered Content Creation**: Generate professional content based on your persona
 - **Multi-platform Support**: Create content for LinkedIn, Twitter, Medium, and other platforms
-- **Content Calendar**: Schedule and organize your content publication
-- **Content Analytics**: Track performance of your published content
 - **Content Templates**: Access professionally designed templates for different content types
 
 ### User Management
@@ -33,7 +30,6 @@ In today's digital world, maintaining a professional online presence is crucial 
 - **Seamless Authentication**: Easy signup and login process
 - **Profile Customization**: Personalize your account settings
 - **Preference Management**: Set your content preferences and notification settings
-- **Secure Access Control**: Role-based permissions for team accounts
 
 ### Integration Capabilities
 
@@ -125,8 +121,6 @@ npm run dev
 1. **Create Your Persona**: Sign up and create your professional persona by providing your LinkedIn profile or filling out our questionnaire
 2. **Define Your Content Strategy**: Set your goals, target audience, and preferred content types
 3. **Generate Content**: Use the Content Studio to create posts, articles, and other content aligned with your persona
-4. **Schedule and Publish**: Plan your content calendar and publish directly or export to your preferred platforms
-5. **Analyze and Refine**: Track performance and refine your strategy based on analytics
 
 ## Use Cases
 
@@ -151,7 +145,6 @@ Detailed documentation is available for both components of the application:
 - **Vite**: Lightning-fast build tool and development server
 - **Tailwind CSS & Shadcn UI**: Beautiful, responsive design components
 - **React Router**: Seamless navigation between application features
-- **Tanstack Query**: Efficient data fetching and state management
 - **React Hook Form & Zod**: Form handling with validation
 
 ### Backend
@@ -159,7 +152,6 @@ Detailed documentation is available for both components of the application:
 - **FastAPI**: High-performance Python web framework
 - **Firebase Admin SDK**: Secure data storage and authentication
 - **OpenAI API**: Powering AI-driven content and persona generation
-- **Docker Support**: For containerized deployment
 
 ## Contributing
 
