@@ -1,6 +1,7 @@
-
 import { Question } from "@/types/signup";
+import { Checkbox } from "../ui/checkbox";
 import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 import {
   Select,
   SelectContent,
@@ -8,8 +9,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { Checkbox } from "../ui/checkbox";
-import { Label } from "../ui/label";
 
 interface QuestionCardProps {
   question: Question;
@@ -23,22 +22,20 @@ const QuestionCard = ({ question, value, onAnswer }: QuestionCardProps) => {
   };
 
   return (
-    <div className="bg-card p-8 rounded-xl shadow-lg">
+    <div className="bg-card p-8 rounded-xl shadow-xl border border-border/10 hover:shadow-lg transition-shadow duration-300">
       <h2 className="text-2xl font-display font-bold text-foreground mb-3">
         {question.question}
       </h2>
-      {question.description && (
-        <p className="text-muted-foreground mb-6">{question.description}</p>
-      )}
 
       <div className="mt-6">
-        {(question.type === "text" || 
-          question.type === "email" || 
-          question.type === "password") && (
+        {(question.type === "text" ||
+          question.type === "email" ||
+          question.type === "password" ||
+          question.type === "number") && (
           <Input
             type={question.type}
             placeholder={question.placeholder}
-            value={value as string || ""}
+            value={(value as string) || ""}
             onChange={(e) => handleInputChange(e.target.value)}
             className="w-full"
           />
@@ -54,7 +51,10 @@ const QuestionCard = ({ question, value, onAnswer }: QuestionCardProps) => {
             </SelectTrigger>
             <SelectContent>
               {question.options.map((option) => (
-                <SelectItem key={option.id} value={option.value}>
+                <SelectItem
+                  key={option.id}
+                  value={option.value}
+                >
                   {option.label}
                 </SelectItem>
               ))}
@@ -65,10 +65,13 @@ const QuestionCard = ({ question, value, onAnswer }: QuestionCardProps) => {
         {question.type === "multiSelect" && question.options && (
           <div className="space-y-4">
             {question.options.map((option) => (
-              <div key={option.id} className="flex items-center space-x-2">
+              <div
+                key={option.id}
+                className="flex items-center space-x-2"
+              >
                 <Checkbox
                   id={option.id}
-                  checked={(value as string[] || []).includes(option.value)}
+                  checked={((value as string[]) || []).includes(option.value)}
                   onCheckedChange={(checked) => {
                     const currentValues = (value as string[]) || [];
                     const newValues = checked

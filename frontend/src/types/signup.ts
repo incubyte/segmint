@@ -1,5 +1,10 @@
-
-export type QuestionType = 'text' | 'email' | 'password' | 'select' | 'multiSelect';
+export type QuestionType =
+  | "text"
+  | "email"
+  | "password"
+  | "select"
+  | "multiSelect"
+  | "number";
 
 export interface Option {
   id: string;

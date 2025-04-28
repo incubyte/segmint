@@ -1,55 +1,61 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, CheckCircle } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
+
+const benefits = [
+  "No credit card required",
+  "14-day free trial",
+  "Cancel anytime",
+  "24/7 customer support",
+];
 
 const CTASection = () => {
   return (
-    <section className="py-20 bg-primary/5 overflow-hidden" id="cta">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Decorative elements */}
-        <div className="absolute -top-24 -right-24 w-64 h-64 bg-primary/10 rounded-full blur-3xl" aria-hidden="true"></div>
-        <div className="absolute -bottom-24 -left-24 w-64 h-64 bg-accent/10 rounded-full blur-3xl" aria-hidden="true"></div>
-        
-        <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100">
-          <div className="gap-0">
-            <div className="p-8 md:p-12 lg:p-16">
-              <div>
-                <h2 className="text-3xl font-display font-bold text-gray-900 sm:text-4xl">
-                  Ready to create content that <span className="text-primary">converts</span>?
-                </h2>
-                <p className="mt-4 text-lg text-gray-600">
-                  Start your 14-day free trial today and see how PersonaScribe can transform your content marketing results.
-                </p>
-                
-                <ul className="mt-8 space-y-4">
-                  <li className="flex items-start">
-                    <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mr-3" />
-                    <span className="text-gray-700">No credit card required</span>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mr-3" />
-                    <span className="text-gray-700">Full access to all features</span>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mr-3" />
-                    <span className="text-gray-700">Guided onboarding support</span>
-                  </li>
-                  <li className="flex items-start">
-                    <CheckCircle className="h-6 w-6 text-primary flex-shrink-0 mr-3" />
-                    <span className="text-gray-700">Cancel anytime</span>
-                  </li>
-                </ul>
-                
-                <div className="mt-10">
-                  <Button size="lg" className="mr-4" asChild>
-                    <Link to="/#signup">
-                      Sign Up Now
-                      <ArrowRight className="ml-2 h-5 w-5" aria-hidden="true" />
-                    </Link>
-                  </Button>
-                </div>
+    <section
+      id="signup"
+      className="relative overflow-hidden bg-primary py-16 sm:py-24"
+    >
+      <div
+        className="absolute inset-0 opacity-10"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='30' height='30' viewBox='0 0 30 30' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1.22676 0C1.91374 0 2.45351 0.539773 2.45351 1.22676C2.45351 1.91374 1.91374 2.45351 1.22676 2.45351C0.539773 2.45351 0 1.91374 0 1.22676C0 0.539773 0.539773 0 1.22676 0Z' fill='rgba(255,255,255,0.5)'/%3E%3C/svg%3E")`,
+          backgroundRepeat: "repeat",
+        }}
+      />
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl lg:max-w-4xl">
+          <h2 className="text-3xl font-display font-bold tracking-tight text-white sm:text-4xl">
+            Ready to Create Content That's Genuinely You?
+          </h2>
+          <p className="mt-4 text-lg text-primary-foreground/90">
+            Stop guessing and start connecting. Let our AI learn your unique persona and
+            help you craft authentic social media content effortlessly.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-4 text-primary-foreground">
+            {benefits.map((benefit) => (
+              <div
+                key={benefit}
+                className="flex items-center text-base"
+              >
+                <CheckCircle2
+                  className="mr-2 h-5 w-5 flex-shrink-0"
+                  aria-hidden="true"
+                />
+                <span>{benefit}</span>
               </div>
-            </div>
+            ))}
+          </div>
+
+          <div className="mt-10">
+            <Button
+              size="lg"
+              variant="secondary"
+              className="font-medium text-base"
+              asChild
+            >
+              <Link to="/signup">Start Sounding Like You</Link>
+            </Button>
           </div>
         </div>
       </div>
