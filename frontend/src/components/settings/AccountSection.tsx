@@ -6,14 +6,12 @@ import * as z from "zod";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Separator } from "@/components/ui/separator";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { toast } from "@/hooks/use-toast";
 import { getUserProfile, updateUserProfile, changePassword } from "@/services/settingsService";
-import { Upload, Camera } from "lucide-react";
+import { Camera } from "lucide-react";
 
 // Profile update form schema
 const profileFormSchema = z.object({
@@ -66,7 +64,7 @@ export const AccountSection = () => {
       try {
         const profile = await getUserProfile();
         setUser(profile);
-        
+
         // Update form with profile data
         profileForm.reset({
           firstName: profile.firstName,
@@ -82,7 +80,7 @@ export const AccountSection = () => {
         });
       }
     };
-    
+
     fetchProfile();
   }, [profileForm]);
 
@@ -91,12 +89,12 @@ export const AccountSection = () => {
     setLoading(true);
     try {
       const result = await updateUserProfile(data);
-      
+
       toast({
         title: "Profile updated",
         description: result.message,
       });
-      
+
       // Update local user state
       setUser(prev => ({ ...prev, ...data }));
     } catch (error) {
@@ -116,12 +114,12 @@ export const AccountSection = () => {
     setPasswordLoading(true);
     try {
       const result = await changePassword(data.currentPassword, data.newPassword);
-      
+
       toast({
         title: "Password changed",
         description: result.message,
       });
-      
+
       // Reset password form
       passwordForm.reset({
         currentPassword: "",
@@ -166,9 +164,9 @@ export const AccountSection = () => {
               {user.firstName.charAt(0)}{user.lastName.charAt(0)}
             </AvatarFallback>
           </Avatar>
-          <Button 
-            size="icon" 
-            variant="secondary" 
+          <Button
+            size="icon"
+            variant="secondary"
             className="absolute bottom-0 right-0 rounded-full h-8 w-8"
             onClick={handleProfilePictureChange}
           >

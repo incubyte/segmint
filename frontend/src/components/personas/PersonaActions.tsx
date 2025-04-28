@@ -31,9 +31,6 @@ export const PersonaActions = ({ onEditClick }: PersonaActionsProps) => {
     );
   }
 
-  // Optional - personalize button text based on persona
-  const personaType = persona?.persona_summary?.toLowerCase() || "";
-
   // Determine platform emphasis from persona data
   let preferredPlatform = "Content";
   if (persona?.raw_questionaries) {
@@ -86,4 +83,3 @@ export const PersonaActions = ({ onEditClick }: PersonaActionsProps) => {
     </Card>
   );
 };
-

@@ -8,9 +8,8 @@ import { ExternalLink, Check, X } from "lucide-react";
 
 export const IntegrationsSection = () => {
   const [integrations, setIntegrations] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
   const [connecting, setConnecting] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const fetchIntegrations = async () => {
       try {
@@ -25,7 +24,7 @@ export const IntegrationsSection = () => {
         });
       }
     };
-    
+
     fetchIntegrations();
   }, []);
 
@@ -33,20 +32,20 @@ export const IntegrationsSection = () => {
     setConnecting(id);
     try {
       const result = await toggleIntegration(id, !connected);
-      
+
       // Update integrations list
-      setIntegrations(prev => 
-        prev.map(integration => 
-          integration.id === id 
-            ? { 
-                ...integration, 
+      setIntegrations(prev =>
+        prev.map(integration =>
+          integration.id === id
+            ? {
+                ...integration,
                 connected: !connected,
                 lastSync: !connected ? new Date().toISOString() : integration.lastSync
-              } 
+              }
             : integration
         )
       );
-      
+
       toast({
         title: result.message,
         description: `Successfully ${!connected ? "connected" : "disconnected"} ${id}`,
@@ -66,12 +65,12 @@ export const IntegrationsSection = () => {
   // Function to render the last synced date
   const renderLastSync = (lastSync: string | null) => {
     if (!lastSync) return "Never synced";
-    
+
     const date = new Date(lastSync);
     const now = new Date();
     const diffMs = now.getTime() - date.getTime();
     const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
-    
+
     if (diffDays === 0) {
       return "Synced today";
     } else if (diffDays === 1) {

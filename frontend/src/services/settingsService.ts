@@ -1,5 +1,3 @@
-
-import { toast } from "@/hooks/use-toast";
 import { API_BASE_URL } from "@/config";
 
 // Mock user profile data
@@ -60,7 +58,7 @@ export const updateUserProfile = async (profile: Partial<typeof mockUserProfile>
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 800));
   console.log("Profile update request:", profile);
-  
+
   // Simulate successful update
   return { success: true, message: "Profile updated successfully" };
 };
@@ -69,12 +67,12 @@ export const changePassword = async (currentPassword: string, newPassword: strin
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 1000));
   console.log("Password change request received");
-  
+
   // Validate current password (in real app this would be done server-side)
   if (currentPassword !== "password123") {
     throw new Error("Current password is incorrect");
   }
-  
+
   return { success: true, message: "Password changed successfully" };
 };
 
@@ -89,7 +87,7 @@ export const updateNotificationSettings = async (settings: Partial<typeof mockNo
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 600));
   console.log("Notification settings update:", settings);
-  
+
   return { success: true, message: "Notification preferences saved" };
 };
 
@@ -104,7 +102,7 @@ export const updatePrivacySettings = async (settings: Partial<typeof mockPrivacy
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 600));
   console.log("Privacy settings update:", settings);
-  
+
   return { success: true, message: "Privacy settings updated" };
 };
 
@@ -112,11 +110,11 @@ export const exportUserData = async () => {
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 2000));
   console.log("Exporting user data");
-  
+
   // In a real app, this would generate and download a file
   // For now, we'll just return a mock success message
-  return { 
-    success: true, 
+  return {
+    success: true,
     message: "Your data export has been prepared",
     downloadUrl: `${API_BASE_URL}/mock-download-url.json`
   };
@@ -126,7 +124,7 @@ export const requestAccountDeletion = async (reason: string) => {
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 1500));
   console.log("Account deletion requested. Reason:", reason);
-  
+
   return { success: true, message: "Account deletion process initiated" };
 };
 
@@ -141,10 +139,10 @@ export const toggleIntegration = async (id: string, connect: boolean) => {
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 1000));
   console.log(`${connect ? "Connecting" : "Disconnecting"} integration ${id}`);
-  
-  return { 
-    success: true, 
-    message: connect ? "Account connected successfully" : "Account disconnected" 
+
+  return {
+    success: true,
+    message: connect ? "Account connected successfully" : "Account disconnected"
   };
 };
 
@@ -159,7 +157,7 @@ export const createApiKey = async (name: string) => {
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 1000));
   console.log("Creating new API key:", name);
-  
+
   const newKey = {
     id: `api-${Date.now()}`,
     name,
@@ -167,9 +165,9 @@ export const createApiKey = async (name: string) => {
     created: new Date().toISOString(),
     lastUsed: null
   };
-  
-  return { 
-    success: true, 
+
+  return {
+    success: true,
     message: "API key created successfully",
     key: newKey
   };
@@ -179,7 +177,7 @@ export const deleteApiKey = async (id: string) => {
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 800));
   console.log("Deleting API key:", id);
-  
+
   return { success: true, message: "API key deleted" };
 };
 
@@ -194,7 +192,7 @@ export const createWebhook = async (name: string, url: string) => {
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 1000));
   console.log("Creating new webhook:", name, url);
-  
+
   const newWebhook = {
     id: `hook-${Date.now()}`,
     name,
@@ -202,9 +200,9 @@ export const createWebhook = async (name: string, url: string) => {
     active: true,
     created: new Date().toISOString()
   };
-  
-  return { 
-    success: true, 
+
+  return {
+    success: true,
     message: "Webhook created successfully",
     webhook: newWebhook
   };
@@ -214,7 +212,7 @@ export const updateWebhook = async (id: string, data: { name?: string, url?: str
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 800));
   console.log("Updating webhook:", id, data);
-  
+
   return { success: true, message: "Webhook updated" };
 };
 
@@ -222,7 +220,7 @@ export const deleteWebhook = async (id: string) => {
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 800));
   console.log("Deleting webhook:", id);
-  
+
   return { success: true, message: "Webhook deleted" };
 };
 
@@ -230,10 +228,10 @@ export const testWebhook = async (url: string) => {
   try {
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     // In a real app, we'd make an actual fetch request to the webhook URL
     console.log("Testing webhook:", url);
-    
+
     // Simulate a successful webhook call
     return { success: true, message: "Webhook test was successful" };
   } catch (error) {

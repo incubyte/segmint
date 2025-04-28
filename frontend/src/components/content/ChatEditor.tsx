@@ -4,16 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Avatar } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { 
+import {
   Popover,
   PopoverContent,
-  PopoverTrigger 
+  PopoverTrigger,
 } from "@/components/ui/popover";
 import {
   Dialog,
@@ -22,16 +16,16 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { 
-  Facebook, 
-  Twitter, 
-  Instagram, 
-  Linkedin, 
-  Send, 
-  MessageSquare, 
-  Share2, 
-  Loader2, 
-  CheckCircle2, 
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Send,
+  MessageSquare,
+  Share2,
+  Loader2,
+  CheckCircle2,
   ImagePlus,
   X
 } from "lucide-react";
@@ -88,22 +82,22 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
 
   const handleSendMessage = async () => {
     if (!input.trim()) return;
-    
+
     const newUserMessage: ChatMessage = {
       id: Date.now().toString(),
       content: input,
       role: "user",
       timestamp: new Date()
     };
-    
+
     setMessages(prev => [...prev, newUserMessage]);
     setInput("");
     setIsLoading(true);
-    
+
     try {
       // Simulate AI response delay
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
+
       // Mock AI response
       const aiResponse: ChatMessage = {
         id: (Date.now() + 1).toString(),
@@ -111,7 +105,7 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
         role: "assistant",
         timestamp: new Date()
       };
-      
+
       setMessages(prev => [...prev, aiResponse]);
     } catch (error) {
       console.error("Error getting AI response:", error);
@@ -129,7 +123,7 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
   };
 
   const togglePlatform = (platformName: string) => {
-    setSelectedPlatforms(prev => 
+    setSelectedPlatforms(prev =>
       prev.includes(platformName)
         ? prev.filter(p => p !== platformName)
         : [...prev, platformName]
@@ -143,18 +137,18 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
     }
 
     setIsPosting(true);
-    
+
     try {
       // Mock API call to post content
       await new Promise(resolve => setTimeout(resolve, 1500));
-      
+
       // Mock success
       setPostSuccess(true);
-      
+
       // Show success message
       const platformsText = selectedPlatforms.join(", ");
       toast.success(`Content posted successfully to ${platformsText}`);
-      
+
       // Reset after a short delay
       setTimeout(() => {
         setShowShareDialog(false);
@@ -162,7 +156,7 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
         setPostSuccess(false);
         if (onClose) onClose();
       }, 1000);
-      
+
     } catch (error) {
       console.error("Error posting content:", error);
       toast.error("Failed to post content. Please try again.");
@@ -171,8 +165,8 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
     }
   };
 
-  const latestContent = messages.length > 0 
-    ? messages[messages.length - 1].content 
+  const latestContent = messages.length > 0
+    ? messages[messages.length - 1].content
     : initialContent;
 
   return (
@@ -182,7 +176,7 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
           <MessageSquare className="h-5 w-5 text-primary" />
           <h2 className="font-semibold text-lg">Content Editor</h2>
         </div>
-        
+
         <div className="flex items-center gap-2">
           <Popover>
             <PopoverTrigger asChild>
@@ -200,18 +194,18 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
               </div>
             </PopoverContent>
           </Popover>
-          
-          <Button 
+
+          <Button
             onClick={() => setShowShareDialog(true)}
             className="gap-1"
           >
             <Share2 className="h-4 w-4" />
             <span className="hidden sm:inline">Share</span>
           </Button>
-          
+
           {onClose && (
-            <Button 
-              variant="ghost" 
+            <Button
+              variant="ghost"
               size="icon"
               onClick={onClose}
             >
@@ -220,12 +214,12 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
           )}
         </div>
       </div>
-      
+
       <div className="flex-1 p-4 overflow-y-auto max-h-[60vh] bg-gray-50">
         <div className="space-y-4">
           {messages.map((message) => (
-            <div 
-              key={message.id} 
+            <div
+              key={message.id}
               className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <Card className={`max-w-[80%] ${message.role === "user" ? "bg-primary text-white" : "bg-white"}`}>
@@ -270,7 +264,7 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
           <div ref={messagesEndRef} />
         </div>
       </div>
-      
+
       <div className="p-4 bg-white border-t">
         <div className="flex items-end gap-2">
           <Textarea
@@ -280,9 +274,9 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
             placeholder="Type your message..."
             className="min-h-[80px] resize-none"
           />
-          <Button 
-            onClick={handleSendMessage} 
-            size="icon" 
+          <Button
+            onClick={handleSendMessage}
+            size="icon"
             className="rounded-full h-10 w-10"
             disabled={isLoading || !input.trim()}
           >
@@ -290,7 +284,7 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
           </Button>
         </div>
       </div>
-      
+
       {/* Share Dialog */}
       <Dialog open={showShareDialog} onOpenChange={setShowShareDialog}>
         <DialogContent className="sm:max-w-md">
@@ -300,12 +294,12 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
               Select platforms to share your content.
             </DialogDescription>
           </DialogHeader>
-          
+
           <div className="grid grid-cols-2 gap-3 py-4">
             {socialPlatforms.map((platform) => {
               const Icon = platform.icon;
               const isSelected = selectedPlatforms.includes(platform.name);
-              
+
               return (
                 <Button
                   key={platform.name}
@@ -319,12 +313,12 @@ export function ChatEditor({ initialContent = "", onClose }: ChatEditorProps) {
               );
             })}
           </div>
-          
+
           <div className="bg-gray-50 p-3 rounded-md">
             <p className="text-sm font-medium mb-2">Preview:</p>
             <p className="text-sm text-gray-700 line-clamp-3">{latestContent}</p>
           </div>
-          
+
           <div className="flex justify-end gap-2 mt-4">
             <Button
               variant="outline"

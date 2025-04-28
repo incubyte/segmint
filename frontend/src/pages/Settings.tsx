@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Helmet } from "react-helmet";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Shield,
   User,
@@ -68,7 +68,7 @@ const Settings = () => {
       title: "Signed out",
       description: "You have been successfully logged out.",
     });
-    
+
     // Navigate to home page
     navigate("/");
   };

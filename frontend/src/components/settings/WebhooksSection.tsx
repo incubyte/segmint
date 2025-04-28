@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { getWebhooks, createWebhook, updateWebhook, deleteWebhook, testWebhook } from "@/services/settingsService";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,14 +13,13 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 
 export const WebhooksSection = () => {
   const [webhooks, setWebhooks] = useState<any[]>([]);
-  const [loading, setLoading] = useState(false);
   const [newWebhookName, setNewWebhookName] = useState("");
   const [newWebhookUrl, setNewWebhookUrl] = useState("");
   const [isAddingWebhook, setIsAddingWebhook] = useState(false);
   const [webhookToDelete, setWebhookToDelete] = useState<string | null>(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [testingWebhook, setTestingWebhook] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const fetchWebhooks = async () => {
       try {
@@ -36,7 +34,7 @@ export const WebhooksSection = () => {
         });
       }
     };
-    
+
     fetchWebhooks();
   }, []);
 
@@ -49,7 +47,7 @@ export const WebhooksSection = () => {
       });
       return;
     }
-    
+
     // Basic URL validation
     try {
       new URL(newWebhookUrl);
@@ -61,23 +59,23 @@ export const WebhooksSection = () => {
       });
       return;
     }
-    
+
     setIsAddingWebhook(true);
     try {
       const result = await createWebhook(newWebhookName, newWebhookUrl);
-      
+
       // Add the new webhook to the list
       setWebhooks(prev => [result.webhook, ...prev]);
-      
+
       toast({
         title: "Webhook created",
         description: result.message,
       });
-      
+
       // Reset form
       setNewWebhookName("");
       setNewWebhookUrl("");
-      
+
     } catch (error) {
       console.error("Error creating webhook:", error);
       toast({
@@ -92,18 +90,18 @@ export const WebhooksSection = () => {
 
   const handleDeleteWebhook = async () => {
     if (!webhookToDelete) return;
-    
+
     try {
       const result = await deleteWebhook(webhookToDelete);
-      
+
       // Remove the webhook from the list
       setWebhooks(prev => prev.filter(webhook => webhook.id !== webhookToDelete));
-      
+
       toast({
         title: "Webhook deleted",
         description: result.message,
       });
-      
+
     } catch (error) {
       console.error("Error deleting webhook:", error);
       toast({
@@ -120,21 +118,21 @@ export const WebhooksSection = () => {
   const handleToggleWebhook = async (id: string, active: boolean) => {
     try {
       const result = await updateWebhook(id, { active: !active });
-      
+
       // Update the webhook in the list
-      setWebhooks(prev => 
-        prev.map(webhook => 
-          webhook.id === id 
-            ? { ...webhook, active: !active } 
+      setWebhooks(prev =>
+        prev.map(webhook =>
+          webhook.id === id
+            ? { ...webhook, active: !active }
             : webhook
         )
       );
-      
+
       toast({
         title: "Webhook updated",
         description: result.message,
       });
-      
+
     } catch (error) {
       console.error("Error updating webhook:", error);
       toast({
@@ -149,12 +147,12 @@ export const WebhooksSection = () => {
     setTestingWebhook(id);
     try {
       const result = await testWebhook(url);
-      
+
       toast({
         title: "Webhook test successful",
         description: result.message,
       });
-      
+
     } catch (error) {
       console.error("Error testing webhook:", error);
       toast({
@@ -235,7 +233,7 @@ export const WebhooksSection = () => {
                   </div>
                 </div>
                 <DialogFooter>
-                  <Button 
+                  <Button
                     onClick={handleCreateWebhook}
                     disabled={isAddingWebhook || !newWebhookName.trim() || !newWebhookUrl.trim()}
                   >
@@ -282,7 +280,7 @@ export const WebhooksSection = () => {
                     Created: {formatDate(webhook.created)}
                   </div>
                   <div className="flex gap-2">
-                    <Button 
+                    <Button
                       size="sm"
                       variant="outline"
                       className="gap-1"
@@ -297,7 +295,7 @@ export const WebhooksSection = () => {
                       if (!open) setWebhookToDelete(null);
                     }}>
                       <AlertDialogTrigger asChild>
-                        <Button 
+                        <Button
                           size="sm"
                           variant="outline"
                           className="gap-1 text-destructive border-destructive/30 hover:bg-destructive/10"

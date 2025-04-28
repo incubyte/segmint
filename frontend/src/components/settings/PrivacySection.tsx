@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { toast } from "@/hooks/use-toast";
-import { AlertCircle, Download, Shield, Trash2 } from "lucide-react";
+import { Download, Shield, Trash2 } from "lucide-react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export const PrivacySection = () => {
@@ -35,7 +35,7 @@ export const PrivacySection = () => {
         });
       }
     };
-    
+
     fetchSettings();
   }, []);
 
@@ -59,12 +59,12 @@ export const PrivacySection = () => {
     setLoading(true);
     try {
       const result = await updatePrivacySettings(settings);
-      
+
       toast({
         title: "Settings saved",
         description: result.message,
       });
-      
+
       setChanged(false);
     } catch (error) {
       console.error("Error updating privacy settings:", error);
@@ -82,12 +82,12 @@ export const PrivacySection = () => {
     setExportLoading(true);
     try {
       const result = await exportUserData();
-      
+
       toast({
         title: "Data export ready",
         description: result.message,
       });
-      
+
       // In a real app, this would trigger a download
       // For now, we'll just simulate it with a timeout
       setTimeout(() => {
@@ -98,7 +98,7 @@ export const PrivacySection = () => {
         link.click();
         document.body.removeChild(link);
       }, 1000);
-      
+
     } catch (error) {
       console.error("Error exporting data:", error);
       toast({
@@ -114,14 +114,14 @@ export const PrivacySection = () => {
   const handleDeleteAccount = async () => {
     try {
       const result = await requestAccountDeletion(deleteReason);
-      
+
       toast({
         title: "Account deletion initiated",
         description: result.message,
       });
-      
+
       setIsDeleteDialogOpen(false);
-      
+
       // In a real app, this would log the user out after a successful deletion request
     } catch (error) {
       console.error("Error requesting account deletion:", error);
@@ -175,7 +175,7 @@ export const PrivacySection = () => {
               onCheckedChange={handleToggle("dataAnalytics")}
             />
           </div>
-          
+
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
               <Label htmlFor="shareSocialData" className="font-medium">
@@ -191,7 +191,7 @@ export const PrivacySection = () => {
               onCheckedChange={handleToggle("shareSocialData")}
             />
           </div>
-          
+
           <div className="flex items-center justify-between">
             <div className="space-y-0.5">
               <Label htmlFor="personalizedContent" className="font-medium">
@@ -207,9 +207,9 @@ export const PrivacySection = () => {
               onCheckedChange={handleToggle("personalizedContent")}
             />
           </div>
-          
+
           <Separator />
-          
+
           <div className="space-y-2">
             <Label htmlFor="dataRetentionPeriod" className="font-medium">
               Data Retention Period
@@ -217,8 +217,8 @@ export const PrivacySection = () => {
             <p className="text-sm text-muted-foreground mb-2">
               Choose how long we store your data after account inactivity
             </p>
-            <Select 
-              value={settings.dataRetentionPeriod} 
+            <Select
+              value={settings.dataRetentionPeriod}
               onValueChange={handleRetentionChange}
             >
               <SelectTrigger id="dataRetentionPeriod" className="w-full md:w-[250px]">
@@ -235,7 +235,7 @@ export const PrivacySection = () => {
           </div>
         </CardContent>
         <CardFooter className="flex justify-end">
-          <Button 
+          <Button
             onClick={handleSave}
             disabled={loading || !changed}
           >
@@ -260,8 +260,8 @@ export const PrivacySection = () => {
                 <p className="text-sm text-muted-foreground">
                   Download a copy of all data associated with your Segmint account
                 </p>
-                <Button 
-                  variant="outline" 
+                <Button
+                  variant="outline"
                   onClick={handleExportData}
                   disabled={exportLoading}
                   className="mt-2"
@@ -271,7 +271,7 @@ export const PrivacySection = () => {
               </div>
             </div>
           </div>
-          
+
           <div className="p-4 border border-destructive/20 rounded-md bg-destructive/5">
             <div className="flex items-start gap-4">
               <Trash2 className="h-10 w-10 text-destructive shrink-0" />
@@ -282,8 +282,8 @@ export const PrivacySection = () => {
                 </p>
                 <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                   <AlertDialogTrigger asChild>
-                    <Button 
-                      variant="destructive" 
+                    <Button
+                      variant="destructive"
                       className="mt-2"
                     >
                       Delete Account
