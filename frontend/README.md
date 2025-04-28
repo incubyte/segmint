@@ -1,73 +1,128 @@
-# Welcome to your Lovable project
+# Segmint Frontend
 
-## Project info
+React-based frontend for the Segmint application, built with Vite, React, TypeScript, and Shadcn UI components.
 
-**URL**: https://lovable.dev/projects/76d0fcf1-de64-4e0a-a73f-2e75be6183f1
+## Features
 
-## How can I edit this code?
+- **Content Studio**: Create and manage content for various platforms
+- **Persona Management**: Create and manage professional personas
+- **User Authentication**: Sign up, sign in, and user management
+- **Settings Management**: Configure application settings
+- **Responsive Design**: Built with modern UI components for all devices
 
-There are several ways of editing your application.
+## Development
 
-**Use Lovable**
+### Prerequisites
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/76d0fcf1-de64-4e0a-a73f-2e75be6183f1) and start prompting.
+- Node.js (LTS version recommended)
+- npm or Yarn package manager
 
-Changes made via Lovable will be committed automatically to this repo.
+### Setup
 
-**Use your preferred IDE**
+```bash
+# Clone the repository
+git clone <repository-url>
+cd segmint/frontend
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+# Install dependencies
+npm install
+# or with yarn
+yarn install
 ```
 
-**Edit a file directly in GitHub**
+### Environment Variables
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Create a `.env` file in the frontend directory:
 
-**Use GitHub Codespaces**
+```
+VITE_API_URL=http://localhost:8000
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Run Development Server
 
-## What technologies are used for this project?
+```bash
+# Start the development server
+npm run dev
+# or with yarn
+yarn dev
+```
 
-This project is built with .
+The application will be available at <http://localhost:5173>
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Build for Production
 
-## How can I deploy this project?
+```bash
+# Build the application
+npm run build
+# or with yarn
+yarn build
 
-Simply open [Lovable](https://lovable.dev/projects/76d0fcf1-de64-4e0a-a73f-2e75be6183f1) and click on Share -> Publish.
+# Preview the production build locally
+npm run preview
+# or with yarn
+yarn preview
+```
 
-## Can I connect a custom domain to my Lovable project?
+## Project Structure
 
-Yes, you can!
+```
+frontend/
+├── public/           # Static assets
+├── src/
+│   ├── components/   # Reusable UI components
+│   │   ├── content/  # Content Studio components
+│   │   ├── persona/  # Persona components
+│   │   ├── ui/       # Shadcn UI components
+│   │   └── ...
+│   ├── contexts/     # React contexts
+│   ├── hooks/        # Custom React hooks
+│   ├── lib/          # Utility libraries
+│   ├── pages/        # Application pages
+│   │   ├── ContentStudio.tsx
+│   │   ├── Index.tsx
+│   │   ├── Personas.tsx
+│   │   ├── Settings.tsx
+│   │   └── ...
+│   ├── services/     # API service layers
+│   ├── types/        # TypeScript type definitions
+│   ├── utils/        # Utility functions
+│   ├── App.tsx       # Main application component
+│   └── main.tsx      # Application entry point
+├── .env              # Environment variables
+├── package.json      # Project dependencies and scripts
+├── tailwind.config.ts # Tailwind CSS configuration
+└── vite.config.ts    # Vite configuration
+```
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## Technologies
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- **React**: Frontend UI library
+- **TypeScript**: Type-safe JavaScript
+- **Vite**: Build tool and development server
+- **React Router**: Page routing
+- **Tailwind CSS**: Utility-first CSS framework
+- **Shadcn UI**: Component library built on Radix UI
+- **Tanstack Query**: Data fetching and state management
+- **React Hook Form**: Form handling
+- **Zod**: Schema validation
+- **Framer Motion**: Animation library
+- **Recharts**: Charting library
+
+## Integration with Backend
+
+The frontend communicates with the Segmint backend API. Make sure the backend server is running before starting the frontend development server. See the backend README for setup instructions.
+
+## Browser Support
+
+The application is designed to work with modern browsers, including:
+
+- Chrome
+- Firefox
+- Safari
+- Edge
+
+## Contributing
+
+1. Make sure your code follows the project's coding standards
+2. Write clear commit messages
+3. Test your changes thoroughly before submitting a pull request

@@ -25,12 +25,12 @@ uvicorn app.main:app --reload
 python main.py
 ```
 
-API will be available at http://localhost:8000
+API will be available at <http://localhost:8000>
 
 ### API Documentation
 
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
+- Swagger UI: <http://localhost:8000/docs>
+- ReDoc: <http://localhost:8000/redoc>
 
 ### Project Structure
 
